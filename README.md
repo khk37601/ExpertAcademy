@@ -77,10 +77,111 @@ ex) baby- gin
 
 
 순차적인 검색 방법이 아닌 탐색범위를 절반으로 줄이면서 탐색하는 방법으로
-O(logn)의 시간 복잡도를 가지게 된다.
+```O(logn)```의 시간 복잡도를 가지게 된다.
 
 (단. 정렬된 배열에서만 가능하다.)
 
+
+#### 정렬 알고리즘
+
+* 버블정렬
+
+원소를 하나씩 비교하면서 정렬하는 방법으로 직관적이고 구현이 간단한 방법입니다.
+
+배열의 크기가 클수록 비효율적인 알고즘입니다.
+
+시간 복잡도는 ```O(n^2)```를 가집니다.
+
+```
+def bublesort(arr):
+   length = len(arr)
+
+   for i in range(length):
+   	# 벙위를 줄여 나가는 방법.
+   	for j in range(length-i-1):
+		if arr[j] > arr[j+1]:
+			arr[j], arr[j+1] = arr[j+1], arr[j]
+
+   return arr
+
+````
+
+
+* 퀵정렬
+
+이름부터 빠른정렬입니다. pivot기준으로 분할 하여 정렬 하는 방법입니다.
+
+최선의 경우 ```O(nlogn)```의 시간 복잡도를 가지게 되지만, 
+
+내림차순아나 오름차순으로 정렬되어있는 경우 ```O(n^2)```시간 복잡도를 가지게 됩니다.
+
+```
+def quitsort(arr):
+
+	if len(arr) <= 1:
+	    return arrr
+	
+	pivot = arr[0]
+	
+	# 정렬.
+	loss = [i for i in arr if i < pivot]
+	hight = [i for i in arr if i > pivot]
+	
+	return quitsort(loss) + [pivot] + quitsort(hight)
+```
+
+
+* 병합정렬
+
+분할정복으로 정렬하는 알고리즘입니다. 
+퀵정렬과 달리 항상 시간복잡도 O(nlogn)를 보장합니다.
+
+```
+
+def mergesort(arr):
+   	
+	if len(arr) > 1:
+	   
+	   left = arr[:mid]
+	   right = arr[mid:]
+	   
+	   l = mergesort(left) 
+	   r = mergsort(right)
+	   
+	   return sort(l, r)
+	 else:
+	   return arr
+	 
+	 
+     def sort(left, right):
+     	
+	left_index = 0
+	right_index = 0
+	arr = []
+	
+	while letf_index < len(left) and right_index < len(right):
+		
+		if left[left_index] < right[right_index]:
+			arr.apppend(left[left_index])
+			left_index +=1
+		else:
+			arr.apppend(right[right_index])
+			right_index +=1
+		
+	# 남아 있는 원소를  처리하기 위함.
+	while letf_index < len(left):
+		arr.append(left[left_index])
+		left_index += 1
+	
+	while right_index < len(right):
+		
+		arr.append(right[rigth_index])
+		right_index += 1
+	   
+	return arr
+	
+```
+##### 파이썬 내장함수 정렬 sort()는 항상 O(nlogn)의 시간 복잡도를 보장합니다. 따라서, 직접 구현하는거 보다 좋은 성능을 보장합니다.
 
 ##### 스택
 
