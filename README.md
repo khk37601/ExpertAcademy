@@ -183,6 +183,83 @@ def mergesort(arr):
 ```
 ##### *파이썬 내장함수 정렬 sort()는 항상 O(nlogn)의 시간 복잡도를 보장합니다. 따라서, 직접 구현하는거 보다 좋은 성능을 보장합니다.
 
+
+##### 너비 우선 탐색 (BFS) VS 깊이 우선 탐색 (DFS)
+
+````
+graph ={
+
+         'A': ['B', 'C'],
+         'B': ['A'],
+         'C': ['A', 'B']
+}
+
+"""
+
+    A---|
+    |   |
+    B   |
+    |   |
+    C --|
+
+"""
+
+````
+
+자료구조 그래프를 순회하는 두 가지 방법입니다.
+
+```너비 우선 탐색 일명, BFS```는  같은 레벨에 있는 노드를 모드 방문 후 에 다음 레벨로 넘어가면서 더 이상 탐색 할 노드가 없을 때 까지 탐색 하는 
+알고리즘 방법입니다. 
+
+자료구조 큐를 사용해서 방문을 합니다.
+
+```
+def bfs(x):
+   
+   queue = []
+   viusit = []
+   queue.append(x)
+   
+   while queue:
+   	n = queue.pop(0)
+	# 방문 한 적이 없는 경우
+	if not n in visit:
+		visit.append(x)
+		queue += graph[x]
+  
+  return visit
+	
+=> 결과 A->B->C
+
+```
+
+
+```깊이 우선 탐색 일명, DFS```는 다음 레벨의 노드가 없을 때까지 깊게 들어가면서 탐색하는 알고리즘 입니다.
+
+자료구조 스택을 사용해서 방문 합니다.
+
+
+```
+def dfs(x):
+   
+   stack = []
+   visit = [] 
+   stack.append(x)
+   
+   while stack:
+   	n = stack.pop()
+   	if not x in visit:
+	   visit.append(x)
+	   stack += graph[x]
+   
+   return vistit	   
+   
+=> 결과  A -> c -> B	
+
+```
+
+
+
 ##### 스택
 
 스택의 자료구조 형태는 FILO(first-in Last-out)이다. 
