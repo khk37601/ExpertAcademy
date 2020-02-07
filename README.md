@@ -258,7 +258,60 @@ def dfs(x):
 
 ```
 
+#### 동적계획법 
 
+큰 문제를 작은 문제로 나눠서 푸는 알고리즘입니다. 우선 분할 정복과 비슷해 보일 수 있습니다.
+
+하지만 동적계획법은 ```이전에 계산된 부분을 다시 사용```한다는 점에서 차이점이 존재 합니다.
+
+이러한 방법을 메모이제이션을 이용하여 문제를 해결 한다고 볼 수 있습니다.
+
+가장 대표적인 피보나치 수열.
+
+```
+# 일반적인 피보나치 수열 구하는 함수.
+
+def fibonacci(n):
+   if n <=2:
+   	return 1
+   
+   return fibonacci(n-1) + fibonacci(n-2)
+
+# 이렇게 구하면 한번 호출된 재귀를 다시 호출 하여 시간복잡도를 많이 높이이는 요소가 됩니다.
+
+# 이런 문제를 해결 해주기 위해서 메모이제이션 방법을 이용합니다. 
+# 재귀방법으로 구한 피보나치 수열.
+memory =[-1] * n
+memory[0] = 1
+memory[1] = 1
+memory[2] = 3
+
+def fibonacci(n):
+    if n <= 2:
+    	return 1
+    # 이전에 값이 있는 확인 하여 이미 호출한 재귀를 재호출 하는것을 방지.
+    if memory[n] != -1:
+       return momery[n]
+       
+    memory.append(memory[n-1]+memory[n-2])
+   
+    return fibonacci(n-1) + fibonacci(n-2)
+    
+
+# 반복문으로 구한 피보나치 수열 
+
+def fibonacci(n):
+   
+   memory = [1, 1, 3]
+   
+   for i in range(3, n+1):
+   	memory.append(memory[n-1] + memory[n-2])
+
+   return memory[n-1]
+
+# 반복으로 사용해서 Stackoverflow를 방지 할 수 있습니다.
+
+```
 
 ##### 스택
 
