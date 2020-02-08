@@ -339,3 +339,114 @@ def fibonacci(n):
    
 ```
  
+ #### 이진트리
+왼쪽 서브트리와 오른쪽 서브트로 구분하는 이진트리 구조입니다.
+
+왼쪽 서브트리는 부모노드 보다 작은 값이 오른쪽 서브트리는 부모보다 큰값을 저장합니다. 
+
+평균적인 시간복잡도는 ```O(logn)``` (균형트리), 최악의 시간복잡도는 ``` O(n)```  (한쪽으로 치우쳐진 이진트리 경우)
+
+ ```
+        30
+   20        35 
+15    21   31   36   
+
+
+
+class Node():
+
+    def __init__(self, data=None):
+        self.data = data
+        self.left = self.right = None
+
+
+class Tree(object):
+
+    def __init__(self):
+        self.root = None
+
+    # 삽입.
+    def insert(self, data):
+
+        self.root = self.insert_value(self.root, data)
+
+    def insert_value(self, node, data):
+
+        if node is None:
+            node = Node(data)
+        else:
+            if node.data >= data:
+                node.left = self.insert_value(node.left, data)
+            else:
+                node.right = self.insert_value(node.right, data)
+
+        return node
+
+    # 찾기
+    def find(self, data):
+
+        node = self.find_value(self.root,data)
+
+    def find_value(self, node, data):
+
+        if node is None:
+            return -1
+
+        if node.data > data :
+            return self.find_value(node.left, data)
+        elif node.data < data:
+            return self.find_value(node.right, data)
+        else:
+            return node
+
+    # 지우기
+    def delete(self, data):
+        self.root, deleted = self.delete_value(self.root, data)
+        return deleted
+
+    def delete_value(self, node, data):
+
+        if node is None:
+            return node, False
+
+        deleted = False
+
+        # 값이 있는 경우.
+        if node.data == data:
+            deleted = True
+            # 양쪽 자식이 있는 경우
+            if node.left and node.right:
+
+                parent, child = node, node.right
+                # 오른쪽의 서브 트리의 제일 작은 값 을 가져오기 위함.
+                while child.left is not None:
+                    parent, child = child, child.left
+
+                # 삭제할 왼쪽 자식을 부모 노드로 하고 그 노드에 왼쪽에 자식에 붙히기.
+                child.left = node.left
+
+                #
+                if parent != node:
+                    parent.left = child.right
+                    child.right = node.right
+
+                node = child
+
+            # 한쪽 자식만 있는 경우.
+            elif node.left or node.right:
+                node = node.left or node.right
+            else:
+                node = None
+
+        elif data < node.data:
+            node.left, deleted = self.delete_value(node.left, data)
+        else:
+            node.left, deleted = self.delete_value(node.right, data)
+
+        return node, deleted
+
+ ```
+ 
+ 
+ 
+ 
