@@ -13,5 +13,4 @@ def solution(n, arr1, arr2):
             else:
                 maze += ' '
         answer.append(maze)
-
     return answer
